@@ -1,0 +1,27 @@
+{
+    "name": "Serenity",
+    "version": "1.01",
+    "description": "Productivity made fun",
+    "permissions" :["tabs","storage"],
+    "background" :{
+        "scripts": ["background.js"],
+        "persistent": false
+
+    },
+    "options_page": "options.html",
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "16": "images2/favicon-16x16.png",
+          "32": "images2/favicon-32x32.png",
+          "128": "images2/favicon-128.png"
+        }
+
+  },
+    "icons": {
+      "16": "images2/favicon-16x16.png",
+      "32": "images2/favicon-32x32.png",
+      "128": "images2/favicon-128.png"
+      },
+    "manifest_version": 2
+  }
