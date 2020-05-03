@@ -10,7 +10,7 @@ function timeLeft(){
     console.log(diff);
     console.log(diff / 60000);
     diff /= 60000; // converts to mins
-    if(diff < 0){
+    if(diff < 0 || data.time == null || data.time == undefined){
       chrome.storage.sync.set({'hours': 12}, function(){ // if diff if negative (timer is done) then set hours to 12 so the page refreshes to have the right data
         console.log('hours set to 12');
       })
