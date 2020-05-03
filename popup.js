@@ -64,13 +64,23 @@ function timeLeft(){
         }
       }
     
-      if(hoursgone >= 9){
+      if(hoursgone >= 9){ // sun
         ctx.beginPath();
         ctx.arc(200, 190 - (7 * hoursgone), 20, 0, 2*Math.PI);
         ctx.fillStyle = "#f9d71c";
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
+      }
+
+      if(hoursgone <= 8){ // moon
+        ctx.beginPath();
+        ctx.arc(200, 50 + (12 * hoursgone), 20, 0, 2*Math.PI);
+        ctx.fillStyle = "#f5f3ce";
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
       }
     
     
@@ -103,23 +113,45 @@ function timeLeft(){
     
     
       ctx.fillStyle = "#f5ed00";
-      ctx.fillRect(218, 205, 35, 12);
+      ctx.fillRect(218, 205, 35, 12); // fill guys window with light
     
       ctx.fillStyle = "#000000";
       ctx.strokeStyle = "#000000";
       ctx.beginPath()
-      ctx.arc(233, 210, 3,0, 2*Math.PI);
+      ctx.arc(233, 210, 3,0, 2*Math.PI); // guys head
       ctx.closePath();
       ctx.fill()
       ctx.moveTo(233, 210);
-      ctx.lineTo(233, 218);
+      ctx.lineTo(233, 218); // guys body
       ctx.stroke();
     
-      ctx.fillRect(243, 207, 6, 6);
-      ctx.fillRect(240, 212, 10, 6 )
+      ctx.fillRect(243, 207, 6, 6); // computer
+      ctx.fillRect(240, 212, 10, 6 ); // computer
   
      ctx.fillStyle = "#B6D9EE"
-     ctx.fillRect(243,207, 2,5);
+     ctx.fillRect(243,207, 2,5); // blue light from computer
+
+
+     ctx.fillStyle = "#000000"; 
+     ctx.fillRect(153, 160, 5, 140); // lamp post
+     ctx.fillRect(153, 160, 18, 2);
+     if(hoursgone <= 8){
+      ctx.fillStyle = "#FFEA61"
+      ctx.beginPath();
+      ctx.arc(164, 162, 6, 0, Math.PI) // lamp light
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+     }
+     else{
+      ctx.fillStyle = "#9a9a9a";
+      ctx.beginPath();
+      ctx.arc(164, 162, 6, 0, Math.PI) // lamp light
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+     }
+  
       
     
       var litupone = (hoursgone * 45) / 12;

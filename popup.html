@@ -4,24 +4,31 @@
     <style>
       /* All Screen sizes */
       @media screen{
-      *{
-        margin: 0;
-        padding: 0;
-        font-family: 'Roboto', sans-serif;
-      }
       body{
-        background-color:#7EC0EE;
+        background-color:   #9BC4E2;
         margin: 0;
         padding: 0;
       }
+      h1{
+        font-family:'Lucida Console', Monaco, monospace;
+        color: #e2c69b;
+      }
+      .strokeme {
+  color: black;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
       #site_title{
         width:200px;
         margin: 20px auto;
         text-align: center;
-        font-family: 'Roboto Slab', serif;
+        color: #e2c69b;
+        font-family: 'Lucida Console', Monaco, monospace;
       }
       #button{
+        margin: 0;
+        padding:0;
        text-align: center;
+       font-family: 'Roboto', sans-serif;
       }
       ul {
           list-style-type: none;
@@ -37,6 +44,11 @@
       li {
           float: left;
       }
+      p{
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+      }
       
       li a {
           display: block;
@@ -45,9 +57,27 @@
           padding: 14px 16px;
           text-decoration: none;
       }
-      
+      form {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      input[type = submit]{
+        margin: 0;
+        padding: 0;
+        background-color: #e2c69b;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 4px 3px;
+        font-family: 'Roboto', sans-serif;
+      }
       li a:hover {
           background-color: #111;
+      }
+      canvas{
+        display: block;
       }
       #content h1{
         margin-bottom: 20px;
@@ -81,52 +111,30 @@
       #container{
         margin: 0 auto;
       }
-      #livecamera{
-        border:0;
-      }
       }
       /* Screen 1000px and larger */
       @media (min-width: 1000px){
       #container{
         width:1000px;
       }
-      #livecamera{
-        width:960px;
-        height: 540px;
-      }
       }
       @media screen and (min-width: 800px) and (max-width: 1000px){
       #container{
         width:800px;
-      }
-      #livecamera{
-        width:760px;
-        height: 428px;
       }
       }
       @media screen and (min-width: 600px) and (max-width: 800px){
       #container{
         width:600px;
       }
-      #livecamera{
-        width:560px;
-        height: 315px;
-      }
       }
       @media screen and (min-width: 400px) and (max-width: 600px){
       #container{
         width:400px;
       }
-      #livecamera{
-        width:360px;
-        height: 203px;
-      }
       }
       @media screen and (max-width: 400px){
       #container{
-        width:100%;
-      }
-      #livecamera{
         width:100%;
       }
       }
@@ -134,7 +142,9 @@
     </style>
   </head>
   <body>
+    <div class = "strokeme">
     <strong><u></strong><h1 id = "site_title">Serenity</h1></u></strong>
+    </div>
     <div style = "width:400px;">
     <div id = "hoursPassed" style="float: left; width: 130px">
 
@@ -151,14 +161,13 @@
             <input type="submit" name = "options" value="Options" >
         </form>
     </div>
-    <div style="float: right; width: 72px"> 
+    <div style="float: right; width: 74px"> 
         <form id="Info form" action="https://cdoern.com/serenity.html" target = "_blank">
             <input type="submit" name = "info" value="Information" >
         </form>
     </div>
 </div>
     <canvas id = "city", width="400", height="400", style = "border:1px solid #000000">
-      
     </canvas>
     <script src="popup.js"></script>
   </body>
