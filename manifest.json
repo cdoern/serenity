@@ -1,6 +1,6 @@
 {
     "name": "Serenity",
-    "version": "1.01",
+    "version": "1.02",
     "description": "Productivity made fun",
     "permissions" :["tabs","storage"],
     "background" :{

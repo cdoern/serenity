@@ -1,6 +1,3 @@
-
-
-chrome.runtime.onInstalled.addListener(function() {
  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){ // listener for when first loading the page
    var url = tab.url;
    console.log(url);
@@ -52,5 +49,3 @@ chrome.runtime.onInstalled.addListener(function() {
   });
   })
   }); 
-  });
-    
