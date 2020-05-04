@@ -24,15 +24,96 @@ function timeLeft(){
       var ctx = g.getContext("2d");
       ctx.beginPath()
       ctx.globalCompositeOperation = 'destination-under'
-      ctx.fillStyle = "#87CEEB";
+      ctx.fillStyle = "#141852";
       ctx.fillRect(0, 0, 400, 400);
       ctx.closePath();
 
-      ctx.fillStyle = "#B6D9EE";
-      ctx.fillRect(0,0,400,400);
+      ctx.fillStyle = "#a66300";
+      ctx.fillRect(0, 100, 150, 200); // left building draw
+      ctx.fillStyle = "#c7be40";
+      ctx.fillRect(150, 195, 120, 105); // middle building draw
+      ctx.fillStyle = "#0f045c";
+      ctx.fillRect(270, 100, 130, 200) // right building draw
+      ctx.fillStyle = "#808080";
+      ctx.fillRect(0,300, 400, 15)
       ctx.fillStyle = "#000000";
+      ctx.strokeStyle = "#000000";
+      ctx.fillRect(0, 315, 400, 85) // road rectangle
+      ctx.beginPath();
+      ctx.moveTo(0, 300);
+      ctx.lineTo(400, 300); // sidewalk line 1
+      ctx.moveTo(0, 315)
+      ctx.lineTo(400, 315); // sidewalk line 2
+      ctx.closePath();
+      ctx.stroke();
+      ctx.strokeStyle = "#f2eb24";
+      for(var i = 10; i < 380; i+=30){ // to draw yellow street lines
+        ctx.beginPath();
+        ctx.moveTo(i, 360);
+        ctx.lineTo(i + 20, 360);
+        ctx.closePath();
+        ctx.stroke();
+      }
+    
+    // lines 56-115 are for the deafult screen so there is repeated code
+      ctx.fillStyle = "#f5ed00";
+      ctx.fillRect(218, 205, 35, 12); // fill guys window with light
+    
+      ctx.fillStyle = "#000000";
+      ctx.strokeStyle = "#000000";
+      ctx.beginPath()
+      ctx.arc(233, 210, 3,0, 2*Math.PI); // guys head
+      ctx.closePath();
+      ctx.fill()
+      ctx.moveTo(233, 210);
+      ctx.lineTo(233, 218); // guys body
+      ctx.stroke();
+    
+      ctx.fillRect(243, 207, 6, 6); // computer
+      ctx.fillRect(240, 212, 10, 6 ); // computer
+  
+     ctx.fillStyle = "#B6D9EE"
+     ctx.fillRect(243,207, 2,5); // blue light from computer
+
+
+     ctx.fillStyle = "#000000"; 
+     ctx.fillRect(153, 160, 5, 140); // lamp post
+     ctx.fillRect(153, 160, 18, 2);
+  
+      ctx.fillStyle = "#FFEA61";
+      ctx.beginPath();
+      ctx.arc(164, 162, 6, 0, Math.PI) // lamp light
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+
+      for(var i = 10; i < 150 ; i+=40){ // windows for left building
+        for(var j = 110; j < 290; j+= 20 ){
+            ctx.fillStyle = "#000000";
+          ctx.fillRect(i, j, 10, 10)
+        }
+      }
+      
+     for( var i = 290; i < 400; i+=40){ // windows for right building
+        for(var j = 110; j < 290; j+= 20){
+            ctx.fillStyle = "#000000";
+          ctx.fillRect(i, j, 10, 10);
+        }
+     }
+    
+     for(var i = 168; i < 260; i+= 50){ // windows for middle building
+       for(var j = 205; j < 270; j+= 28){
+        var rand = Math.random();
+        if(i != 218 || j != 205){ // if  not top right window
+          ctx.fillStyle = "#000000";
+          ctx.fillRect(i, j, 35, 12);
+         }
+       }
+     }
+      ctx.fillStyle = "#ffffff";
       ctx.font = "20px Serif";
-      ctx.fillText("Please enter data in the options menu.", 55, 200)
+      ctx.fillText("Please enter data in the options menu.", 55, 70);
+      // end default screen setup
     }
     else{
     hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
@@ -93,8 +174,8 @@ function timeLeft(){
       ctx.fillStyle = "#808080";
       ctx.fillRect(0,300, 400, 15)
       ctx.fillStyle = "#000000";
-     ctx.strokeStyle = "#000000";
-     ctx.fillRect(0, 315, 400, 85) // road rectangle
+      ctx.strokeStyle = "#000000";
+      ctx.fillRect(0, 315, 400, 85) // road rectangle
       ctx.beginPath();
       ctx.moveTo(0, 300);
       ctx.lineTo(400, 300); // sidewalk line 1
@@ -261,14 +342,3 @@ function timeLeft(){
   })
   
 }
- 
-
-
-
-
- 
- 
- 
-
-
-
