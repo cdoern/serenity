@@ -59,3 +59,37 @@
   });
   })
   }); 
+
+  var alreadyPop = false;
+
+  setInterval(getTimeData, 1000);
+
+  function getTimeData(){
+    chrome.storage.sync.get('time', function(data){
+      chrome.storage.sync.get('originalTime', function(orig){
+        chrome.storage.sync.get('userCausedHours', function(uch){
+        if(data.time != null && data.time != undefined){ // if active session
+        console.log(data.time);
+        var until = new Date(data.time)
+        var d = new Date();
+        var diff = until - d; // calculates ms left
+        console.log(diff);
+        console.log(diff / 60000);
+        diff /= 60000; // converts to mins
+        if(diff < 0 && diff > -0.01){ // if just ran out of time
+          alert('Your timer has ended!');
+        }
+        else if(diff > 0){ // if out of hours but not time then uch caused this
+          hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
+          hoursgone = ((12 - hoursleft) + uch.userCausedHours)
+          if(hoursgone >= 12){
+            alert('The lone worker has run out of hours before your time was completed.... Your timer will contiue.');
+          }
+        }
+      }
+      });
+    });
+  });
+
+
+  }
