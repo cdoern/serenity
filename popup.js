@@ -294,7 +294,7 @@ function timeLeft(){
       ctx.fillRect(0,0,400,400);
       ctx.fillStyle = "#000000";
       ctx.font = "30px Serif";
-      ctx.fillText("Times Up! It's rush hour!", 55, 200)
+      ctx.fillText("Time's Up! It's rush hour!", 50, 200)
     
     }
     
@@ -322,6 +322,9 @@ function timeLeft(){
       }
       if(mins / 10 < 1){
         mins = "0" + mins
+      }
+      if(mins == 60){
+        mins = 59;
       }
     }
     else{

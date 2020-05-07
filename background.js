@@ -48,8 +48,8 @@
               }
             chrome.storage.sync.get(['userCausedHours'], function(data2) {
                 console.log(data2.userCausedHours)
-                chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 1}, function() {
-                    console.log('hours = ' + data2.userCausedHours + 1) ;
+                chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.3}, function() {
+                    console.log('hours = ' + data2.userCausedHours + 0.3) ;
                   })
               });
             }
@@ -76,14 +76,16 @@
         console.log(diff);
         console.log(diff / 60000);
         diff /= 60000; // converts to mins
-        if(diff < 0 && diff > -0.01){ // if just ran out of time
+        if(diff < 0 && diff > -0.01 && !alreadyPop){ // if just ran out of time
           alert('Your timer has ended!');
+          alreadyPop = true;
         }
         else if(diff > 0){ // if out of hours but not time then uch caused this
           hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
           hoursgone = ((12 - hoursleft) + uch.userCausedHours)
-          if(hoursgone >= 12){
+          if(hoursgone >= 12 && !alreadyPop){
             alert('The lone worker has run out of hours before your time was completed.... Your timer will contiue.');
+            alreadyPop = true;
           }
         }
       }
