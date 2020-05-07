@@ -14,13 +14,13 @@
         chrome.storage.sync.get(['time'], function(data){
           if(data.time != null){ // if we are in an active session
             if(!doit){ // just in case the user put the same site in the list twice
-            alert('You are visiting one of your blacklisted sites! The worker now has one less hour to finish his presentation!');
+            alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
             doit = true;
             }
           chrome.storage.sync.get(['userCausedHours'], function(data2) {
               console.log(data2.userCausedHours)
-              chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 1}, function() {
-                  console.log('hours = ' + data2.userCausedHours + 1) ;
+              chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.3}, function() {
+                  console.log('hours = ' + data2.userCausedHours + 0.3) ;
                 })
             });
           }
@@ -43,7 +43,7 @@
           chrome.storage.sync.get(['time'], function(data){
             if(data.time != null){ // if we are in an active session
               if(!doit){ // just in case the user put the same site in the list twice
-              alert('You are visiting one of your blacklisted sites! The worker now has one less hour to finish his presentation!');
+              alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
               doit = true;
               }
             chrome.storage.sync.get(['userCausedHours'], function(data2) {
@@ -65,6 +65,7 @@
   setInterval(getTimeData, 1000);
 
   function getTimeData(){
+    console.log(alreadyPop);
     chrome.storage.sync.get('time', function(data){
       chrome.storage.sync.get('originalTime', function(orig){
         chrome.storage.sync.get('userCausedHours', function(uch){
@@ -76,13 +77,16 @@
         console.log(diff);
         console.log(diff / 60000);
         diff /= 60000; // converts to mins
+        hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
+        hoursgone = ((12 - hoursleft) + uch.userCausedHours)
+        if(diff > 0 && hoursgone < 12){
+          alreadyPop = false; // reset this boolean or else once it is true the popups will never happen for future sessions
+        }
         if(diff < 0 && diff > -0.01 && !alreadyPop){ // if just ran out of time
           alert('Your timer has ended!');
           alreadyPop = true;
         }
         else if(diff > 0){ // if out of hours but not time then uch caused this
-          hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
-          hoursgone = ((12 - hoursleft) + uch.userCausedHours)
           if(hoursgone >= 12 && !alreadyPop){
             alert('The lone worker has run out of hours before your time was completed.... Your timer will contiue.');
             alreadyPop = true;
