@@ -57,6 +57,10 @@ function constructOptions() {
       })
     })
     timeEnter.addEventListener('click', function(){
+      var phase = Math.round(Math.random() * 1)
+      chrome.storage.sync.set({'moonPhase': phase}, function(){
+        console.log('moon phase chosen: ' + phase);
+      })
       chrome.storage.sync.set({'userCausedHours':0}, function(){ // user caused hours set to zero if time changed
         console.log('user caused hour increments reset.')
       })

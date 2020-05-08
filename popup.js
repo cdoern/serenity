@@ -155,13 +155,20 @@ function timeLeft(){
       }
 
       if(hoursgone <= 8){ // moon
-        ctx.beginPath();
-        ctx.arc(200, 50 + (12 * hoursgone), 20, 0, 2*Math.PI);
-        ctx.fillStyle = "#f5f3ce";
-        ctx.fill();
-        ctx.stroke();
-        ctx.closePath();
-
+        chrome.storage.sync.get('moonPhase', function(moon){
+          console.log(moon.moonPhase);
+          ctx.beginPath();
+         if(moon.moonPhase == 1){
+          ctx.arc(200, 50 + (12 * hoursgone), 20, .35 * Math.PI, 1.3 * Math.PI, false)//+ 20 * moon.moonPhase)
+         }
+         else{
+          ctx.arc(200, 50 + (12 * hoursgone), 20, 0, 2*Math.PI);
+         }
+          ctx.fillStyle = "#f5f3ce";
+          ctx.fill();
+          ctx.stroke();
+          ctx.closePath();
+        })
       }
     
     
