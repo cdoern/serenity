@@ -12,7 +12,7 @@
      for(var i = 0; i < sites.length; i++){
       if(tab.url.includes(sites[i])){
         chrome.storage.sync.get(['time'], function(data){
-          if(data.time != null){ // if we are in an active session
+          if(data.time != null  && data.time != undefined){ // if we are in an active session
             if(!doit){ // just in case the user put the same site in the list twice
             alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
             doit = true;
@@ -41,7 +41,7 @@
       for(var i = 0; i < sites.length; i++){
         if(tab.url.includes(sites[i])){
           chrome.storage.sync.get(['time'], function(data){
-            if(data.time != null){ // if we are in an active session
+            if(data.time != null && data.time != undefined){ // if we are in an active session
               if(!doit){ // just in case the user put the same site in the list twice
               alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
               doit = true;
@@ -82,7 +82,10 @@
         if(diff > 0 && hoursgone < 12){
           alreadyPop = false; // reset this boolean or else once it is true the popups will never happen for future sessions
         }
-        if(diff < 0 && diff > -0.01 && !alreadyPop){ // if just ran out of time
+        if(diff < 0 && !alreadyPop){ // if just ran out of time
+          chrome.storage.sync.set({'time': null}, function(){
+            console.log('timer reset either from previous session or from current...');
+          })
           alert('Your timer has ended!');
           alreadyPop = true;
         }
