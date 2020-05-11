@@ -1,3 +1,10 @@
+ /*
+  * popup.js
+  * Name: Charlie Doern
+  * Last Updated: 5/10/2020
+  * Purpose: script which handles the popup and its information for serenity google chrome extension
+  */
+ 
 var hoursgone = 0;
 timeLeft();
 function timeLeft(){

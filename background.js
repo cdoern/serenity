@@ -1,3 +1,9 @@
+ /*
+  * background.js
+  * Name: Charlie Doern
+  * Last Updated: 5/10/2020
+  * Purpose: background script for serenity google chrome extension
+  */
  
  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){ // listener for when first loading the page
   var doit = false;
@@ -14,7 +20,7 @@
         chrome.storage.sync.get(['time'], function(data){
           chrome.storage.sync.get(['hours'], function(h){
             console.log('hours:' + h.hours);
-            var timeGone = 12 - h.hours;
+            var timeGone = 12 - h.hours; // how to determine if we are stillw/in a proper time frame (virtually)
           if(data.time != null  && data.time != undefined && timeGone < 12.6){ // if we are in an active session and not in a session where lone worker has run out of time already...
             if(!doit){ // just in case the user put the same site in the list twice
             alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
@@ -47,7 +53,7 @@
           chrome.storage.sync.get(['time'], function(data){
             chrome.storage.sync.get(['hours'], function(h){
               console.log('hours:' + h.hours);
-              var timeGone = 12 - h.hours;
+              var timeGone = 12 - h.hours; // how to determine if we are stillw/in a proper time frame (virtually)
             if(data.time != null && data.time != undefined && timeGone < 12.6){ // if we are in an active session and not in a session where lone worker has run out of time already...
               if(!doit){ // just in case the user put the same site in the list twice
               alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');

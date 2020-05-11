@@ -1,3 +1,10 @@
+ /*
+  * options.js
+  * Name: Charlie Doern
+  * Last Updated: 5/10/2020
+  * Purpose: script which handles the options page for serenity google chrome extension
+  */
+ 
 let blackList = document.getElementById('blacklistDiv');
 
 let otherOpts = document.getElementById('otherOpts');
