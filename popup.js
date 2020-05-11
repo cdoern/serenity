@@ -121,11 +121,9 @@ function timeLeft(){
       console.log(data.userCausedHours) // get user caused increments
       console.log(hoursleft);
       hoursgone = ((12 - hoursleft) + data.userCausedHours)
-      /*
-      if(hoursgone > 12){ // if timer still going but user caused hours led us to 12/12 make sure hoursgone doesnt go to 13, 14 etc
+      if(hoursgone > 12.7){ // if timer still going but user caused hours led us to 12/12 make sure hoursgone doesnt go to 13, 14 etc
         hoursgone = 12;
       }
-      */
       console.log(hoursgone);  
       var g = document.getElementById('city'); 
       var ctx = g.getContext("2d");

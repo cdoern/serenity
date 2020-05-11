@@ -12,7 +12,10 @@
      for(var i = 0; i < sites.length; i++){
       if(tab.url.includes(sites[i])){
         chrome.storage.sync.get(['time'], function(data){
-          if(data.time != null  && data.time != undefined){ // if we are in an active session
+          chrome.storage.sync.get(['hours'], function(h){
+            console.log('hours:' + h.hours);
+            var timeGone = 12 - h.hours;
+          if(data.time != null  && data.time != undefined && timeGone < 12.6){ // if we are in an active session and not in a session where lone worker has run out of time already...
             if(!doit){ // just in case the user put the same site in the list twice
             alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
             doit = true;
@@ -25,6 +28,7 @@
             });
           }
           })
+        })
         }
       }
    })
@@ -41,7 +45,10 @@
       for(var i = 0; i < sites.length; i++){
         if(tab.url.includes(sites[i])){
           chrome.storage.sync.get(['time'], function(data){
-            if(data.time != null && data.time != undefined){ // if we are in an active session
+            chrome.storage.sync.get(['hours'], function(h){
+              console.log('hours:' + h.hours);
+              var timeGone = 12 - h.hours;
+            if(data.time != null && data.time != undefined && timeGone < 12.6){ // if we are in an active session and not in a session where lone worker has run out of time already...
               if(!doit){ // just in case the user put the same site in the list twice
               alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
               doit = true;
@@ -54,6 +61,7 @@
               });
             }
             })
+          })
         }
       }
   });
