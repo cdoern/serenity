@@ -19,8 +19,8 @@
             }
           chrome.storage.sync.get(['userCausedHours'], function(data2) {
               console.log(data2.userCausedHours)
-              chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.3}, function() {
-                  console.log('hours = ' + data2.userCausedHours + 0.3) ;
+              chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.2}, function() {
+                  console.log('hours = ' + data2.userCausedHours + 0.2) ;
                 })
             });
           }
@@ -48,8 +48,8 @@
               }
             chrome.storage.sync.get(['userCausedHours'], function(data2) {
                 console.log(data2.userCausedHours)
-                chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.3}, function() {
-                    console.log('hours = ' + data2.userCausedHours + 0.3) ;
+                chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.2}, function() {
+                    console.log('hours = ' + data2.userCausedHours + 0.2) ;
                   })
               });
             }
@@ -79,7 +79,7 @@
         diff /= 60000; // converts to mins
         hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
         hoursgone = ((12 - hoursleft) + uch.userCausedHours)
-        if(diff > 0 && hoursgone < 12){
+        if(diff > 0 && hoursgone < 12.6){
           alreadyPop = false; // reset this boolean or else once it is true the popups will never happen for future sessions
         }
         if(diff < 0 && !alreadyPop){ // if just ran out of time
@@ -90,7 +90,7 @@
           alreadyPop = true;
         }
         else if(diff > 0){ // if out of hours but not time then uch caused this
-          if(hoursgone >= 12 && !alreadyPop){
+          if(hoursgone >= 12.6 && !alreadyPop){
             alert('The lone worker has run out of hours before your time was completed.... Your timer will contiue.');
             alreadyPop = true;
           }

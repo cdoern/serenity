@@ -121,15 +121,16 @@ function timeLeft(){
       console.log(data.userCausedHours) // get user caused increments
       console.log(hoursleft);
       hoursgone = ((12 - hoursleft) + data.userCausedHours)
+      /*
       if(hoursgone > 12){ // if timer still going but user caused hours led us to 12/12 make sure hoursgone doesnt go to 13, 14 etc
         hoursgone = 12;
       }
-
+      */
       console.log(hoursgone);  
       var g = document.getElementById('city'); 
       var ctx = g.getContext("2d");
     
-      if(hoursgone < 12 || hoursgone == null){
+      if(hoursgone <= 12.6 || hoursgone == null){
       skyColors = ["#070B34", "#070B34", "#141852", "#141852", "#2B2F77", "#2B2F77", "#483475", "#6B4984", "#6B4984", "#855988", "#324ab2", "#87CEEB", "#87CEEB"]; // possible colors for sky
       ctx.beginPath()
       ctx.globalCompositeOperation = 'destination-under'
@@ -320,7 +321,7 @@ function timeLeft(){
       var hours = "00";
       var mins = "00";
       if(diff > 0){ // if time is not up calculate hours and mins and print x/12 hours past
-      hoursPassedDiv.innerHTML = "<p> " + Math.round(hoursgone) + "/12 hours";
+      hoursPassedDiv.innerHTML = "<p> " + Math.floor(hoursgone) + "/12 hours"; // round down so it doesnt increment too quick
       var hours = Math.round(diff / 60);
       var mins = Math.round(diff % 60);
     
@@ -335,7 +336,7 @@ function timeLeft(){
       }
     }
     else{
-      hoursPassedDiv.innerHTML = "<p> " + (Math.round(hoursgone)) + "/12 hours"; // print 12/12 hours manually as this code will never get there
+      hoursPassedDiv.innerHTML = "<p> " + (Math.floor(hoursgone)) + "/12 hours"; // print 12/12 hours manually as this code will never get there and round down
     }
     timeRemainingDiv.innerHTML = "<p> " + hours + ":" + mins + " left"
     
