@@ -1,7 +1,7 @@
  /*
   * options.js
   * Name: Charlie Doern
-  * Last Updated: 5/10/2020
+  * Last Updated: 5/11/2020
   * Purpose: script which handles the options page for serenity google chrome extension
   */
  
