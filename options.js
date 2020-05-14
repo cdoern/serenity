@@ -40,9 +40,12 @@ function constructOptions() {
     let timeEnter = document.createElement('button');
     let clear = document.createElement('button');
     clear.innerHTML = 'Clear Blacklist';
+    clear.style.padding = '3px';
     button.innerHTML = 'Enter';
+    button.style.padding = '2px';
     timeEnter.innerHTML = 'Enter';
     timeEnter.style.width = '70px';
+    timeEnter.style.padding = '2px';
     button.style.width = '70px'
     button.addEventListener('click', function() { // button to add item to blacklist clicked
       chrome.storage.sync.get({

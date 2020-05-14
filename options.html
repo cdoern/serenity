@@ -1,24 +1,29 @@
 <!DOCTYPE html>
   <html>
     <head>
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
       <style>
         /* All Screen sizes */
         @media screen{
-        *{
-          margin: 0;
-          padding: 0;
-          font-family: 'Roboto', sans-serif;
+          *{
+          margin: 1;
+          padding: 1;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 10px;
         }
         body{
-          background-color:#9BC4E2;
+          background-color:#2B2F77;
           margin: 0;
           padding: 0;
         }
         #site_title{
           width:200px;
           margin: 20px auto;
+          padding: 1px;
           text-align: center;
-          font-family: 'Roboto Slab', serif;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 20px;
+          color: #f5f3ce;
         }
         #button{
          text-align: center;
@@ -60,8 +65,9 @@
         }
         #content{
           margin-bottom: 20px;
+          text-align: center;
           padding: 20px;
-          background-color: white;
+          background-color: #ffffe0;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
         #content p{
@@ -88,45 +94,27 @@
         /* Screen 1000px and larger */
         @media (min-width: 1000px){
         #container{
-          width:1000px;
-        }
-        #livecamera{
-          width:960px;
-          height: 540px;
+          width: 700px;
         }
         }
         @media screen and (min-width: 800px) and (max-width: 1000px){
         #container{
-          width:800px;
-        }
-        #livecamera{
-          width:760px;
-          height: 428px;
+          width:500px;
         }
         }
         @media screen and (min-width: 600px) and (max-width: 800px){
         #container{
-          width:600px;
-        }
-        #livecamera{
-          width:560px;
-          height: 315px;
+          width:300px;
+
         }
         }
         @media screen and (min-width: 400px) and (max-width: 600px){
         #container{
-          width:400px;
-        }
-        #livecamera{
-          width:360px;
-          height: 203px;
+          width:100px;
         }
         }
         @media screen and (max-width: 400px){
         #container{
-          width:100%;
-        }
-        #livecamera{
           width:100%;
         }
         }
@@ -135,23 +123,28 @@
     <body>
       <h1 id = "site_title">Serenity Options</h1>
       <div id = "container">
+      <ul>
+        <li><a href = "help.html">Help</a></li>
+        <li><a href = "advancedOptions.html">Advanced Options</a></li>
+      </ul>
+      <br>
       <div id = "content">
         <p>Enter a site to be blacklisted...</p>
       <div id="blacklistDiv">
         <input type ="text" id = "blacklistInput">
       </div>
       <br>
-      <br>
-      <div id = "otherOpts">
-        <p>Enter a time to work until...</p>
-        <input type ="datetime-local" id = "workUntil" step = "1">
-      </div>
-      <br>
-      <br>
       <div id = "clearDiv">
 
       </div>
     </div>
+      <br>
+      <div id = "content">
+        <div id = "otherOpts">
+          <p>Enter a time to work until...</p>
+          <input type ="datetime-local" id = "workUntil" step = "1">
+        </div>
+      </div>
     </div>
     </body>
     <script src="options.js"></script>
