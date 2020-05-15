@@ -28,8 +28,7 @@ function construct(){
             var until = new Date() // new date to work until
             console.log(until.toString())
             var hours = until.getHours();
-            //until.setTime(until.getTime() + (1*60*60*1000));
-            until.setTime(until.getTime() + 1000 * 60);
+            until.setTime(until.getTime() + (1*60*60*1000)); // this makes the cycle oscilate in an hour long period
             var d = new Date();
             var diff = until - d; // difference between now and time inputted
             console.log(diff);
