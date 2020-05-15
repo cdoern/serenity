@@ -90,16 +90,23 @@ function constructOptions() {
       chrome.storage.sync.set({'originalTime': diff}, function(){ // store original time ot calculate propotion later
         console.log('new time value stored.')
       })
-
+      location.reload(); // reload so current session is displayed
     })
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
     clearButton.appendChild(clear); // append dom element created (clear blacklist button)
-    currentList.innerHTML = "<br> <br> Current Blacklist: <br> <br>" // add as header before printing current blacklist
+    currentList.innerHTML = "<br> <br> Current Blacklist: <br> <br>"; // add as header before printing current blacklist
     chrome.storage.sync.get({list:[]}, function(data){
       data.list.forEach(element => { // print each element in the list
       currentList.innerHTML += element + " <br>"
       });
+    })
+    currentSession.innerHTML = "<br> <br> Current Session Information: <br> <br>";
+    chrome.storage.sync.get('time', function(data){
+      if(data.time != null || data.time != undefined){ // if in an active session
+        var str = data.time.replace("T", " "); // make more reader friendly
+        currentSession.innerHTML += "Working Until: " + str; // add time working until to the page
+      }
     })
 }
 constructOptions(); // call function to create page
