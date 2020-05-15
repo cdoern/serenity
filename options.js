@@ -103,10 +103,15 @@ function constructOptions() {
     })
     currentSession.innerHTML = "<br> <br> Current Session Information: <br> <br>";
     chrome.storage.sync.get('time', function(data){
-      if(data.time != null || data.time != undefined){ // if in an active session
+      chrome.storage.sync.get('infiniteMode', function(inf){
+      if((data.time != null || data.time != undefined) && inf.infiniteMode != 1){ // if in an active session
         var str = data.time.replace("T", " "); // make more reader friendly
         currentSession.innerHTML += "Working Until: " + str; // add time working until to the page
       }
+      else if(inf.infiniteMode == 1){
+        currentSession.innerHTML += "<span>&infin;</span>"
+      }
     })
+  })
 }
 constructOptions(); // call function to create page

@@ -46,6 +46,15 @@ function construct(){
             chrome.storage.sync.set({infiniteMode: 0}, function(){
                 console.log('infinite mode ended');
             })
+            chrome.storage.sync.set({'hours': 12}, function(){ // reset hours so timer stops
+              console.log('hours set to 12');
+            })
+            chrome.storage.sync.set({'time': null}, function(){ // reset time so timer stops
+              console.log('done, resetting time...')
+            })
+            chrome.storage.sync.set({'userCausedHours': 0}, function(){ // reset UCH so timer stops
+              console.log('done, resetting user caused hours passed...')
+            })
         }
     })
     var dropDown = document.getElementById("dropDown"); // create drop down menu for auto filled list
