@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+      <style>
+        /* All Screen sizes */
+        @media screen{
+          *{
+          margin: 1;
+          padding: 1;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 10px;
+        }
+        body{
+          background-color:#2B2F77;
+          margin: 0;
+          padding: 0;
+        }
+        #site_title{
+          width:200px;
+          margin: 20px auto;
+          padding: 1px;
+          text-align: center;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 20px;
+          color: #f5f3ce;
+        }
+        select{
+            padding: 2px;
+            margin: 1px;
+        }
+        #button{
+         text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #908C8C;
+        }
+        ol {
+        margin-left: 25;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+        #content h1{
+          margin-bottom: 20px;
+        }
+        #content h2{
+          margin: 15px 0;
+        }
+        #content h3{
+          margin: 10px 0;
+        }
+        #content{
+          margin-bottom: 20px;
+          text-align: center;
+          padding: 20px;
+          background-color: #ffffe0;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #content p{
+          margin: 7.5px 0;
+        }
+        #content ul{
+          margin: 0 20px;
+        }
+        #footer{
+          text-align: center;
+          color:white;
+          margin-bottom: 20px;
+        }
+        #footer a{
+          color:white;
+        }
+        #container{
+          margin: 0 auto;
+        }
+        #livecamera{
+          border:0;
+        }
+        }
+        /* Screen 1000px and larger */
+        @media (min-width: 1000px){
+        #container{
+          width: 700px;
+        }
+        }
+        @media screen and (min-width: 800px) and (max-width: 1000px){
+        #container{
+          width:500px;
+        }
+        }
+        @media screen and (min-width: 600px) and (max-width: 800px){
+        #container{
+          width:300px;
+
+        }
+        }
+        @media screen and (min-width: 400px) and (max-width: 600px){
+        #container{
+          width:100px;
+        }
+        }
+        @media screen and (max-width: 400px){
+        #container{
+          width:100%;
+        }
+        }
+        </style>
+    </head>
+    <body>
+      <h1 id = "site_title">Advanced Options</h1>
+      <div id = "container">
+      <ul>
+        <li><a href = "help.html">Help</a></li>
+        <li><a href = "options.html">Regular Options</a></li>
+      </ul>
+      <br>
+      <div id = "content">
+        <p style = "font-size: 15px;">Infinite Mode</p>
+        <br>
+        <p>Infinite mode allows the user to leave Serenity on forever. A time limit is not necessary. The user will be reminded when visiting blacklisted sites but time for the lone worker will not speed up. Instead of hitting rush hour, the day will instead transition back into night.</p>
+      <div id="infiniteMode">
+
+      </div>
+      <br>
+    </div>
+      <br>
+      <div id = "content">
+        <div id = "preFilled">
+          <p style = "font-size: 15px;">Pre-filled Blacklist</p>
+          <br>
+          <p>Select a pre-filled list to be placed in your blacklist...</p>
+          <br>
+          <select id = "dropDown"></select>
+        </div>
+      </div>
+    </div>
+    </body>
+    <script src="advancedOptions.js"></script>
+  </html>

@@ -80,10 +80,11 @@
 
   function getTimeData(){
     console.log(alreadyPop);
+    chrome.storage.sync.get('infiniteMode', function(inf){
     chrome.storage.sync.get('time', function(data){
       chrome.storage.sync.get('originalTime', function(orig){
         chrome.storage.sync.get('userCausedHours', function(uch){
-        if(data.time != null && data.time != undefined){ // if active session
+        if(data.time != null && data.time != undefined || inf.infiniteMode == 1){ // if active session
         console.log(data.time);
         var until = new Date(data.time)
         var d = new Date();
@@ -93,17 +94,18 @@
         diff /= 60000; // converts to mins
         hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
         hoursgone = ((12 - hoursleft) + uch.userCausedHours)
-        if(diff > 0 && hoursgone < 12.6){
+        console.log(inf.infiniteMode)
+        if((diff > 0 && hoursgone < 12.6)){
           alreadyPop = false; // reset this boolean or else once it is true the popups will never happen for future sessions
         }
-        if(diff < 0 && !alreadyPop){ // if just ran out of time
+        if(diff < 0 && !alreadyPop && inf.infiniteMode == 0){ // if just ran out of time
           chrome.storage.sync.set({'time': null}, function(){
             console.log('timer reset either from previous session or from current...');
           })
           alert('Your timer has ended!');
           alreadyPop = true;
         }
-        else if(diff > 0){ // if out of hours but not time then uch caused this
+        else if(diff > 0 && inf.infiniteMode == 0){ // if out of hours but not time then uch caused this
           if(hoursgone >= 12.6 && !alreadyPop){
             alert('The lone worker has run out of hours before your time was completed.... Your timer will contiue.');
             alreadyPop = true;
@@ -113,6 +115,7 @@
       });
     });
   });
+})
 
 
   }

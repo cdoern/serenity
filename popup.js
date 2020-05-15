@@ -1,13 +1,14 @@
  /*
   * popup.js
   * Name: Charlie Doern
-  * Last Updated: 5/11/2020
+  * Last Updated: 5/14/2020
   * Purpose: script which handles the popup and its information for serenity google chrome extension
   */
  
 var hoursgone = 0;
 timeLeft();
 function timeLeft(){
+chrome.storage.sync.get('infiniteMode', function(inf){
   chrome.storage.sync.get('time', function(data){
     chrome.storage.sync.get('originalTime', function(orig){
     console.log(data.time);
@@ -17,7 +18,8 @@ function timeLeft(){
     console.log(diff);
     console.log(diff / 60000);
     diff /= 60000; // converts to mins
-    if(diff < 0 || data.time == null || data.time == undefined){
+    console.log('infinite mode: ' + inf.infiniteMode);
+    if((diff < 0 || data.time == null || data.time == undefined) && (inf.infiniteMode == 0 || inf.infiniteMode == null || inf.infiniteMode == undefined)){
       chrome.storage.sync.set({'hours': 12}, function(){ // if diff if negative (timer is done) then set hours to 12 so the page refreshes to have the right data
         console.log('hours set to 12');
       })
@@ -123,11 +125,22 @@ function timeLeft(){
       // end default screen setup
     }
     else{
+    if(inf.infiniteMode != 1){  // if not in infinite mode then calculate normally 
     hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
+    }
+    else if (inf.infiniteMode == 1){ // if in infnite mode use the abs
+      hoursleft = ((Math.abs(diff) * 12) / orig.originalTime) % 24;  // when you % it resets to full sun up. for example if you go from 23%24 which evaluates to 23 to 25/24 which evaluates to 1. Math.abs(12-23) is the same as Math.abs(12-1)
+    }
+    console.log('hours left: ' + hoursleft);
     chrome.storage.sync.get(['userCausedHours'], function(data) {
       console.log(data.userCausedHours) // get user caused increments
       console.log(hoursleft);
+      if(inf.infiniteMode == 1){ // if in infinite mode
+         hoursgone = (Math.abs(12 - hoursleft) + data.userCausedHours) // the math.abs ensures that even when hourspast > 12 you get a proper result
+      }
+      else if(inf.infiniteMode != 1){ // if in regular mode just calc normally
       hoursgone = ((12 - hoursleft) + data.userCausedHours)
+      }
       if(hoursgone > 12.7){ // if timer still going but user caused hours led us to 12/12 make sure hoursgone doesnt go to 13, 14 etc
         hoursgone = 12;
       }
@@ -135,7 +148,7 @@ function timeLeft(){
       var g = document.getElementById('city'); 
       var ctx = g.getContext("2d");
     
-      if(hoursgone <= 12.6 || hoursgone == null){
+      if(hoursgone <= 12.6 || hoursgone == null || inf.infiniteMode == 1){ // do this when in a valid session
       skyColors = ["#070B34", "#070B34", "#141852", "#141852", "#2B2F77", "#2B2F77", "#483475", "#6B4984", "#6B4984", "#855988", "#324ab2", "#87CEEB", "#87CEEB"]; // possible colors for sky
       ctx.beginPath()
       ctx.globalCompositeOperation = 'destination-under'
@@ -325,9 +338,11 @@ function timeLeft(){
       diff /= 60000; // converts to mins
       var hours = "00";
       var mins = "00";
+
+      if(inf.infiniteMode != 1){ // if in a normal session print things normally
       if(diff > 0){ // if time is not up calculate hours and mins and print x/12 hours past
       hoursPassedDiv.innerHTML = "<p> " + Math.floor(hoursgone) + "/12 hours"; // round down so it doesnt increment too quick
-      var hours = Math.round(diff / 60);
+      var hours = Math.round(diff / 60) - 1;
       var mins = Math.round(diff % 60);
     
       if(hours / 10 < 1){
@@ -344,7 +359,15 @@ function timeLeft(){
       hoursPassedDiv.innerHTML = "<p> " + (Math.floor(hoursgone)) + "/12 hours"; // print 12/12 hours manually as this code will never get there and round down
     }
     timeRemainingDiv.innerHTML = "<p> " + hours + ":" + mins + " left"
-    
+  }
+  if(inf.infiniteMode == 1){ // if in a infinite session
+    hoursPassedDiv.innerHTML = "<span>&infin;</span>" // print infinity symbol in a span so it can go side by side w the p
+    hoursPassedDiv.innerHTML += "<p>/12 hours </p>"; // print 12
+    timeRemainingDiv.innerHTML =  "<span>&infin;</span>" // print infinity symbol in a span so it can go side by side w the p
+    timeRemainingDiv.innerHTML +=  "<p> left</p>"
+
+  }
+
     
       })
     })
@@ -356,5 +379,6 @@ function timeLeft(){
     } // put all drawing inside of this else so it can read the updated hoursgone
     })
   })
+})
   
 }

@@ -1,7 +1,7 @@
  /*
   * options.js
   * Name: Charlie Doern
-  * Last Updated: 5/11/2020
+  * Last Updated: 5/14/2020
   * Purpose: script which handles the options page for serenity google chrome extension
   */
  
@@ -57,6 +57,7 @@ function constructOptions() {
         chrome.storage.sync.set({list:data.list}, function() { // when button clicked get the list and then append new data to it and store it
           console.log('item ' + text.value + ' appended') ;
           text.value = "";
+          location.reload();
         })
 
       })
@@ -64,6 +65,7 @@ function constructOptions() {
     clear.addEventListener('click', function(){ // reset blacklist button clicked
       chrome.storage.sync.set({list:[]},function(){
         console.log('list reset.')
+        location.reload();
       })
     })
     timeEnter.addEventListener('click', function(){
@@ -93,5 +95,11 @@ function constructOptions() {
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
     clearButton.appendChild(clear); // append dom element created (clear blacklist button)
+    currentList.innerHTML = "<br> <br> Current Blacklist: <br> <br>" // add as header before printing current blacklist
+    chrome.storage.sync.get({list:[]}, function(data){
+      data.list.forEach(element => { // print each element in the list
+      currentList.innerHTML += element + " <br>"
+      });
+    })
 }
 constructOptions(); // call function to create page
