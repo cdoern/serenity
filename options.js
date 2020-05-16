@@ -1,7 +1,7 @@
  /*
   * options.js
   * Name: Charlie Doern
-  * Last Updated: 5/14/2020
+  * Last Updated: 5/16/2020
   * Purpose: script which handles the options page for serenity google chrome extension
   */
  
@@ -69,6 +69,11 @@ function constructOptions() {
       })
     })
     timeEnter.addEventListener('click', function(){
+      var until = new Date(time.value) // new date with time inputted by user
+      var d = new Date();
+      var diff = until - d; // difference between now and time inputted
+      console.log(diff);
+      if(!Number.isNaN(diff)){ // this makes sure a blank date isnt entered
       var phase = Math.round(Math.random() * 1)
       chrome.storage.sync.set({'moonPhase': phase}, function(){
         console.log('moon phase chosen: ' + phase);
@@ -79,10 +84,6 @@ function constructOptions() {
       chrome.storage.sync.set({'hours': 0}, function() { // hours set to zero if time changed
         console.log('hours = 0') ;
       })
-      var until = new Date(time.value) // new date with time inputted by user
-      var d = new Date();
-      var diff = until - d; // difference between now and time inputted
-      console.log(diff);
       diff = diff / 60000; // difference as minutes
       chrome.storage.sync.set({'time': time.value}, function(){
         console.log('new time value stored.')
@@ -91,6 +92,7 @@ function constructOptions() {
         console.log('new time value stored.')
       })
       location.reload(); // reload so current session is displayed
+    }
     })
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
