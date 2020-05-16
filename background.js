@@ -27,12 +27,14 @@
             alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
             doit = true;
             }
+        if(inf.infiniteMode != 1){
           chrome.storage.sync.get(['userCausedHours'], function(data2) {
               console.log(data2.userCausedHours)
               chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.2}, function() {
                   console.log('hours = ' + data2.userCausedHours + 0.2) ;
                 })
             });
+          }
           }
           })
         })
@@ -52,7 +54,7 @@
       console.log(tab.url);
       for(var i = 0; i < sites.length; i++){
         if(tab.url.includes(sites[i])){
-        chrome.storage.sync.get('infiniteHours', function(inf){
+        chrome.storage.sync.get('infiniteMode', function(inf){
           chrome.storage.sync.get(['time'], function(data){
             chrome.storage.sync.get(['hours'], function(h){
               console.log('hours:' + h.hours);
@@ -62,12 +64,14 @@
               alert('You are visiting one of your blacklisted sites! The worker now has less time to finish his presentation!');
               doit = true;
               }
+          if(inf.infiniteMode != 1){
             chrome.storage.sync.get(['userCausedHours'], function(data2) {
                 console.log(data2.userCausedHours)
                 chrome.storage.sync.set({'userCausedHours': data2.userCausedHours + 0.2}, function() {
                     console.log('hours = ' + data2.userCausedHours + 0.2) ;
                   })
               });
+            }
             }
             })
           })
