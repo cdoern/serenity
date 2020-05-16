@@ -99,7 +99,7 @@
         hoursleft =((diff * 12) / orig.originalTime); // minutes left as a propotion of 12 hours (so now it is hours left)
         hoursgone = ((12 - hoursleft) + uch.userCausedHours)
         console.log(inf.infiniteMode)
-        if((diff > 0 && hoursgone < 12.6)){
+        if((diff > 0 && hoursgone < 12.6) && inf.infiniteMode == 0){
           alreadyPop = false; // reset this boolean or else once it is true the popups will never happen for future sessions
         }
         if(diff < 0 && !alreadyPop && inf.infiniteMode == 0){ // if just ran out of time
