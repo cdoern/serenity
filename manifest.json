@@ -1,6 +1,6 @@
 {
     "name": "Serenity: Productivity & Time Management",
-    "version": "1.10.02",
+    "version": "1.10.03",
     "description": "Productivity made fun",
     "permissions" :["tabs","storage"],
     "background" :{
