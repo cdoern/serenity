@@ -32,6 +32,9 @@ function constructOptions() {
     if(mins / 10 < 1){
       mins = "0" + mins // extra zero if single digit
     }
+    if(hours / 10 < 1){ // extra zero if single digit
+      hours = "0" + hours;
+    }
     if(seconds / 10 < 1){
       seconds = "0" + seconds; // extra zero if single digit
     }
