@@ -342,10 +342,7 @@ chrome.storage.sync.get('infiniteMode', function(inf){
       if(inf.infiniteMode != 1){ // if in a normal session print things normally
       if(diff > 0){ // if time is not up calculate hours and mins and print x/12 hours past
       hoursPassedDiv.innerHTML = "<p> " + Math.floor(hoursgone) + "/12 hours"; // round down so it doesnt increment too quick
-      var hours = Math.round(diff / 60);
-      if(hours != 0){
-        hours--;
-      }
+      var hours = Math.floor(diff / 60);
       var mins = Math.round(diff % 60);
     
       if(hours / 10 < 1){
