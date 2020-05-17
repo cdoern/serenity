@@ -91,19 +91,22 @@ function constructOptions() {
       chrome.storage.sync.set({'originalTime': diff}, function(){ // store original time ot calculate propotion later
         console.log('new time value stored.')
       })
+      chrome.storage.sync.set({'infiniteMode': 0}, function(){ // reset inf mode if it was going
+        console.log('infinite mode ended');
+      })
       location.reload(); // reload so current session is displayed
     }
     })
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
     clearButton.appendChild(clear); // append dom element created (clear blacklist button)
-    currentList.innerHTML = "<br> <br> Current Blacklist: <br> <br>"; // add as header before printing current blacklist
+    currentList.innerHTML = "<br> Current Blacklist: <br>"; // add as header before printing current blacklist
     chrome.storage.sync.get({list:[]}, function(data){
       data.list.forEach(element => { // print each element in the list
       currentList.innerHTML += element + " <br>"
       });
     })
-    currentSession.innerHTML = "<br> <br> Current Session Information: <br> <br>";
+    currentSession.innerHTML = "<br> Current Session Information: <br> <br>";
     chrome.storage.sync.get('time', function(data){
       chrome.storage.sync.get('infiniteMode', function(inf){
       if((data.time != null || data.time != undefined) && inf.infiniteMode != 1){ // if in an active session
