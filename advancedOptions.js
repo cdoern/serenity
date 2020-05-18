@@ -1,3 +1,10 @@
+/*
+ * advancedOptions.js
+ * Name: Charlie Doern
+ * Last Updated: 5/18/2020
+ * Purpose: basic event handling for the advanced Options page
+ */
+
 let infiniteModeDiv = document.getElementById('infiniteMode');
 let preFilledDiv = document.getElementById('preFilled');
 

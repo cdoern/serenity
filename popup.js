@@ -1,7 +1,7 @@
  /*
   * popup.js
   * Name: Charlie Doern
-  * Last Updated: 5/17/2020
+  * Last Updated: 5/18/2020
   * Purpose: script which handles the popup and its information for serenity google chrome extension
   */
  
