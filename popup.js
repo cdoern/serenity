@@ -266,7 +266,7 @@ chrome.storage.sync.get('infiniteMode', function(inf){
       for(var i = 10; i < 150 ; i+=40){ // windows for left building
         for(var j = 110; j < 290; j+= 20 ){
           var rand = Math.random();
-          console.log(howmanyone + " " + litupone + " " + hoursgone)
+          //console.log(howmanyone + " " + litupone + " " + hoursgone)
           if(rand > 0.5 && howmanyone < litupone){
             ctx.fillStyle = "#f5ed00";
             howmanyone++;
