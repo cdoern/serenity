@@ -120,7 +120,12 @@ chrome.storage.sync.get('infiniteMode', function(inf){
        }
      }
       ctx.fillStyle = "#ffffff";
+      if (navigator.appVersion.indexOf("Linux") != -1){
+        ctx.font = "16px Serif";
+      }
+      else{
       ctx.font = "20px Serif";
+      }
       ctx.fillText("Please enter data in the options menu.", 55, 70);
       // end default screen setup
     }
@@ -319,7 +324,12 @@ chrome.storage.sync.get('infiniteMode', function(inf){
       ctx.fillStyle = "#B6D9EE";
       ctx.fillRect(0,0,400,400);
       ctx.fillStyle = "#000000";
+      if (navigator.appVersion.indexOf("Linux") != -1){
+        ctx.font = "25px Serif";
+      }
+      else{
       ctx.font = "30px Serif";
+      }
       ctx.fillText("Time's Up! It's rush hour!", 50, 200)
     
     }
