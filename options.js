@@ -11,6 +11,10 @@ let otherOpts = document.getElementById('otherOpts');
 
 let clearButton = document.getElementById('clearDiv');
 
+let userOpts = document.getElementById('userOpts');
+
+let userInfo = document.getElementById('userInfo');
+
 function constructOptions() {
     let text = document.getElementById('blacklistInput');
     let button = document.createElement('button');
@@ -42,6 +46,8 @@ function constructOptions() {
     time.value = concat
     let timeEnter = document.createElement('button');
     let clear = document.createElement('button');
+    let userEnter = document.createElement('button');
+    let userText = document.getElementById('userInput');
     clear.innerHTML = 'Clear Blacklist';
     clear.style.padding = '3px';
     button.innerHTML = 'Enter';
@@ -50,6 +56,9 @@ function constructOptions() {
     timeEnter.style.width = '70px';
     timeEnter.style.padding = '2px';
     button.style.width = '70px'
+    userEnter.innerHTML = 'Enter';
+    userEnter.style.padding = '2px';
+    userEnter.style.width = '70px';
     button.addEventListener('click', function() { // button to add item to blacklist clicked
       chrome.storage.sync.get({
         list:[]
@@ -100,9 +109,75 @@ function constructOptions() {
       location.reload(); // reload so current session is displayed
     }
     })
+    userEnter.addEventListener('click', function(){
+      $.post(                         //call the server
+        "https://www.cdoern.com/addUser.php",      //At this url
+        {
+            user: userText.value
+        }                               //And send this data to it
+    ).done(                             //And when it's done
+        function(data)
+        {
+            if(data == "new user"){
+              console.log('success');
+              try{
+              chrome.storage.sync.get('user', function(data){
+            if(data.user != userText.value){
+              $.post(                             //call the server
+                "https://www.cdoern.com/replaceUser.php",                     //At this url
+                {
+                    oldUser: data.user,
+                    user: userText.value
+                }                               //And send this data to it
+            ).done(
+              function(){
+                console.log('user successfully replaced in table...')
+                chrome.storage.sync.set({'user': userText.value}, function(){
+                  console.log('user value updated in chrome storage');
+                })
+                setTimeout(function(){location.reload()}, 2000)  
+              } 
+            );
+            }
+            })
+          }
+          catch(err){
+            console.log(err);
+            chrome.storage.sync.set({'user': userText.value}, function(){
+              console.log('intial val of user stored in chrome storage');
+              $.post(   
+              "https://www.cdoern.com/insertUser.php",                     //At this url
+              {
+                  user: userText.value
+              }                               //And send this data to it
+          ).done(
+            function(){
+              console.log('user successfully inserted into table...')
+                setTimeout(function(){location.reload()}, 2000)  
+            } 
+          );
+            })
+          }
+            }  //Update here with the response
+        }
+     
+    );
+    })
+
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
     clearButton.appendChild(clear); // append dom element created (clear blacklist button)
+    userOpts.appendChild(userEnter);
+    
+    try{
+      chrome.storage.sync.get('user', function(data){
+        userInfo.innerHTML += "<p> Current username: " + data.user + "</p>";
+      })
+    }
+    catch(err){
+      userInfo.innerHTML += "<p> Current username: </p>";
+    }
+
     currentList.innerHTML = "<br> Current Blacklist: <br>"; // add as header before printing current blacklist
     chrome.storage.sync.get({list:[]}, function(data){
       data.list.forEach(element => { // print each element in the list

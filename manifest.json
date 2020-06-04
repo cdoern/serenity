@@ -1,12 +1,12 @@
 {
     "name": "Serenity: Productivity & Time Management",
-    "version": "1.11.0",
+    "version": "1.12.0",
     "short_name": "Serenity",
     "author": "Charlie Doern",
     "description": "Productivity made fun, a website blocker to help you focus",
     "permissions" :["tabs","storage"],
     "background" :{
-        "scripts": ["background.js"],
+        "scripts": ["jquery-3.5.1.min.js","background.js"],
         "persistent": false
 
     },

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
   <html>
     <head>
+      <script src="jquery-3.5.1.min.js"></script>
       <link href="font.css" rel="stylesheet">
       <style>
         /* All Screen sizes */
@@ -44,7 +45,25 @@
         ol {
         margin-left: 25;
         }
-        
+        form {
+          list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #908C8C;
+        }
+        input[type=submit]{
+          border: none;
+          display: block;
+          background-color: #908C8C;
+          color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        input[type=submit]:hover{
+          background-color: #111;
+        }
         li {
             float: left;
         }
@@ -147,34 +166,32 @@
         </style>
     </head>
     <body>
-      <h1 id = "site_title">Advanced Options</h1>
+      <h1 id = "site_title">Serenity Social Page</h1>
       <div id = "container">
-      <ul>
-        <li><a href = "help.html">Help</a></li>
-        <li><a href = "options.html">Regular Options</a></li>
-        <li><a href = "social.html">Social Page</a></li>
+        <ul>
+          <li><a href = "help.html">Help</a></li>
+          <li><a href = "advancedOptions.html">Advanced Options</a></li>
+          <li><a href = "options.html">Regular Options</a></li>
+        </ul>
+        <br>
+      <div id = "content">
+        <p style = "font-size: 15px;">Leaderboard</p>
+        <br>
+        <ul>
+        <li><a href = "https://cdoern.com/global.php">Global Leaderboard</a></li>
+        <li><div id = "friendButton"></div></li>
       </ul>
       <br>
-      <div id = "content">
-        <p style = "font-size: 15px;">Infinite Mode</p>
-        <br>
-        <p>Infinite mode allows the user to leave Serenity on forever. A time limit is not necessary. The user will be reminded when visiting blacklisted sites but time for the lone worker will not speed up. Instead of hitting rush hour, the day will instead transition back into night.</p>
-      <div id="infiniteMode">
-
+      <h2>Add a friend!</h2>
+      <p>Use the entry below to add someone to your friends list. You can either reach out to them and ask them for their username or use the global leaderboard to add new friends!</p>
+      <br>
+      <div id = "addFriend">
+        <input type = "text" id = "friendInput">
       </div>
+      <script src = "social.js"></script>
       <br>
     </div>
       <br>
-      <div id = "content">
-        <div id = "preFilled">
-          <p style = "font-size: 15px;">Pre-filled Blacklist</p>
-          <br>
-          <p>Select a pre-filled list to be placed in your blacklist...</p>
-          <br>
-          <select id = "dropDown"></select>
-        </div>
-      </div>
     </div>
     </body>
-    <script src="advancedOptions.js"></script>
   </html>

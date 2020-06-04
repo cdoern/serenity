@@ -5,6 +5,18 @@
   * Purpose: background script for serenity google chrome extension
   */
  
+  /*
+ chrome.runtime.onInstalled.addListener(function(details){
+  if(details.reason == "install"){
+      chrome.storage.sync.set({'user': ""}, function(){
+        console.log('user set');
+      })
+  }else if(details.reason == "update"){
+      //call a function to handle an update
+  }
+});
+*/
+
  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){ // listener for when first loading the page
   var doit = false;
    var url = tab.url;
@@ -110,6 +122,22 @@
           chrome.storage.sync.set({'time': null}, function(){
             console.log('timer reset either from previous session or from current...');
           })
+          
+          try{
+            chrome.storage.sync.get('user', function(data){
+              $.post(             //call the server
+                "https://www.cdoern.com/incrementScore.php",       //At this url
+                {
+                    user: data.user
+                }                               //And send this data to it
+            ).done( function(){
+              console.log('socre successfully incremented')
+            });
+            })
+          }
+          catch(err){
+            console.log('user profile not set up yet...')
+          }
           alert('Your timer has ended!');
           alreadyPop = true;
         }
