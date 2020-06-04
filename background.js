@@ -1,22 +1,10 @@
  /*
   * background.js
   * Name: Charlie Doern
-  * Last Updated: 5/16/2020
+  * Last Updated: 6/4/2020
   * Purpose: background script for serenity google chrome extension
   */
  
-  /*
- chrome.runtime.onInstalled.addListener(function(details){
-  if(details.reason == "install"){
-      chrome.storage.sync.set({'user': ""}, function(){
-        console.log('user set');
-      })
-  }else if(details.reason == "update"){
-      //call a function to handle an update
-  }
-});
-*/
-
  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){ // listener for when first loading the page
   var doit = false;
    var url = tab.url;
@@ -123,19 +111,21 @@
             console.log('timer reset either from previous session or from current...');
           })
           
-          try{
-            chrome.storage.sync.get('user', function(data){
+      try{
+          chrome.storage.sync.get('user', function(data){ // if there is something in user
+            if(data.user != undefined && data.user != null){ // and its not just undefined then we increment score when done
               $.post(             //call the server
                 "https://www.cdoern.com/incrementScore.php",       //At this url
-                {
+              {
                     user: data.user
                 }                               //And send this data to it
             ).done( function(){
               console.log('socre successfully incremented')
             });
-            })
           }
-          catch(err){
+       })
+     }
+    catch(err){ // else if there is some error w the variable, then its not set up yet
             console.log('user profile not set up yet...')
           }
           alert('Your timer has ended!');

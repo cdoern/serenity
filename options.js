@@ -1,7 +1,7 @@
  /*
   * options.js
   * Name: Charlie Doern
-  * Last Updated: 5/16/2020
+  * Last Updated: 6/4/2020
   * Purpose: script which handles the options page for serenity google chrome extension
   */
  
@@ -109,7 +109,7 @@ function constructOptions() {
       location.reload(); // reload so current session is displayed
     }
     })
-    userEnter.addEventListener('click', function(){
+    userEnter.addEventListener('click', function(){ // if they want to set their user name
       $.post(                         //call the server
         "https://www.cdoern.com/addUser.php",      //At this url
         {
@@ -118,11 +118,11 @@ function constructOptions() {
     ).done(                             //And when it's done
         function(data)
         {
-            if(data == "new user"){
+            if(data == "new user"){ // if the username is available
               console.log('success');
-              try{
+              try{ // try getting user if already set
               chrome.storage.sync.get('user', function(data){
-            if(data.user != userText.value){
+            if(data.user != userText.value && data.user != undefined && data.user != null){ // if this user already hasa name and this is a new one, we need to replace
               $.post(                             //call the server
                 "https://www.cdoern.com/replaceUser.php",                     //At this url
                 {
@@ -133,18 +133,32 @@ function constructOptions() {
               function(){
                 console.log('user successfully replaced in table...')
                 chrome.storage.sync.set({'user': userText.value}, function(){
-                  console.log('user value updated in chrome storage');
+                  console.log('user value updated in chrome storage'); // insert new name into chrome storage
                 })
-                setTimeout(function(){location.reload()}, 2000)  
+                setTimeout(function(){location.reload()}, 2000)  //reload so everything displays nicely
               } 
             );
             }
-            })
+           if(data.user == undefined || data.user == null){ // if no error but indefined
+              $.post(   
+                "https://www.cdoern.com/insertUser.php",                     //At this url
+                {
+                    user: userText.value
+                }                               //And send this data to it
+            ).done(
+              function(){
+                console.log('user successfully inserted into table...')
+                chrome.storage.sync.set({'user': userText.value}, function(){
+                  console.log('intial val of user stored in chrome storage'); // store in chrome first
+                })
+                  setTimeout(function(){location.reload()}, 2000)  //reload so displays nicely
+              } 
+            );
+            }
+          }) // end chrome storage retrieval 
           }
-          catch(err){
-            console.log(err);
-            chrome.storage.sync.set({'user': userText.value}, function(){
-              console.log('intial val of user stored in chrome storage');
+          catch(err){ // if there is no user set up yet we need to insert not replace
+            console.log('error: '+err); 
               $.post(   
               "https://www.cdoern.com/insertUser.php",                     //At this url
               {
@@ -153,29 +167,34 @@ function constructOptions() {
           ).done(
             function(){
               console.log('user successfully inserted into table...')
-                setTimeout(function(){location.reload()}, 2000)  
+              chrome.storage.sync.set({'user': userText.value}, function(){
+                console.log('intial val of user stored in chrome storage'); // store in chrome first
+              })
+                setTimeout(function(){location.reload()}, 2000)  //reload so displays nicely
             } 
-          );
-            })
+          ); 
           }
-            }  //Update here with the response
-        }
-     
+        }  //Update here with the response
+      } 
     );
-    })
-
+  })
     blackList.appendChild(button); // append dom element created (blacklist button)
     otherOpts.appendChild(timeEnter); // append dom element created (time enter button)
     clearButton.appendChild(clear); // append dom element created (clear blacklist button)
-    userOpts.appendChild(userEnter);
+    userOpts.appendChild(userEnter); // append dom element created (set user name)
     
-    try{
+    try{ // try getting current username to print
       chrome.storage.sync.get('user', function(data){
-        userInfo.innerHTML += "<p> Current username: " + data.user + "</p>";
+        if(data.user != undefined && data.user != null){
+        userInfo.innerHTML += "<p> Current username: " + data.user + "</p>"; // add this to html so the users current name is displayed
+        }
+        else{
+          userInfo.innerHTML += "<p> Current username: </p>"; // add this to html so the default blank is displayed instead of undefined
+        }
       })
     }
     catch(err){
-      userInfo.innerHTML += "<p> Current username: </p>";
+      userInfo.innerHTML += "<p> Current username: </p>"; // else just print a blank bc no user set up
     }
 
     currentList.innerHTML = "<br> Current Blacklist: <br>"; // add as header before printing current blacklist
